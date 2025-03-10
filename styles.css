@@ -103,6 +103,7 @@ body {
     padding: 20px 0;
     border-top: 1px solid rgba(255, 255, 255, 0.3); /* Разделительная линия */
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    font-family: 'Merriweather', serif;
 }
 
 .event {
@@ -124,6 +125,7 @@ body {
 
 /* Место проведения */
 .location {
+    font-family: 'Merriweather', serif;
     margin-top: 30px;
 }
 
@@ -138,12 +140,14 @@ body {
     font-size: 1.2em;
     margin: 5px 0;
     color: #ccc;
+    margin-bottom: 20px;
 }
 
 /* Футер */
 .footer {
     margin-top: 30px;
     padding-bottom: 100px; /* Отступ для счетчика */
+    font-family: 'Merriweather', serif;
 }
 
 .footer p {
@@ -229,7 +233,7 @@ body {
 }
 
 .feedback h3 {
-    font-family: 'Playfair Display', serif; /* Шрифт для заголовка */
+    font-family: 'Merriweather', serif; /* Шрифт для заголовка */
     font-size: 2em;
     margin-bottom: 20px;
     color: #fff;
@@ -258,6 +262,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     outline: none;
+    font-family: 'Merriweather', serif;
 }
 
 .form-group textarea {
@@ -276,6 +281,7 @@ body {
     color: #fff;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin-top: 10px;
 }
 
 .feedback button:hover {
@@ -368,4 +374,36 @@ body {
 .card-content img {
     width: 48px; /* Укажите нужный размер */
     height: 48px; /* Укажите нужный размер */
+}
+
+/* Стиль для заголовка "Кого еще возьмете с собой?" */
+#family-members-section label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1px; /* Меньше отступа, чем у остальных заголовков */
+    font-family: 'Merriweather', serif;
+}
+
+/* Стиль для полей ввода имен членов семьи */
+#family-members-container .form-group {
+    margin-bottom: 10px; /* Уменьшаем расстояние между полями */
+    margin-top: 10px;
+}
+
+#family-members-container .form-group input {
+    width: 100%; /* Делаем поле ввода во всю ширину контейнера */
+    padding: 8px; /* Немного увеличиваем padding для лучшего восприятия */
+    border: 1px solid #ccc; /* Стандартная граница */
+    border-radius: 4px; /* Округлые углы */
+    box-sizing: border-box; /* Чтобы padding не выходил за границы поля */
+    font-family: 'Merriweather', serif;
+}
+
+/* Меньше отступа между блоками формы */
+#family-members-container .form-group + .form-group {
+    margin-top: 5px;
+}
+
+#add-family-member {
+    margin-bottom: 40px; /* Добавляем отступ снизу */
 }

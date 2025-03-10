@@ -5,7 +5,7 @@ ymaps.ready(initMap);
 
 function initMap() {
     const map = new ymaps.Map('map', {
-        center: [53.908856, 27.556720], // Центр карты (Москва, для примера)
+        center: [53.931901, 27.610824],
         zoom: 11, // Масштаб карты
     });
 
@@ -13,8 +13,8 @@ function initMap() {
     const registryOfficeMarker = new ymaps.Placemark(
         [53.908856, 27.556720], // Координаты загса
         {
-            hintContent: 'Загс', // Подсказка
-            balloonContent: '<h3>Загс</h3><p>Здесь будет роспись</p>', // Балун
+            hintContent: 'ЗАГС Центрального Района', // Подсказка
+            balloonContent: '<h3>ЗАГС Центрального Района</h3><p>Здесь будет проходить роспись</p> <p>ул. Максима Багдановича, 17А</p>', // Балун
         },
         {
             iconLayout: 'default#image',
@@ -28,8 +28,8 @@ function initMap() {
     const banquetMarker = new ymaps.Placemark(
         [53.947724, 27.644710], // Координаты банкета
         {
-            hintContent: 'Банкет', // Подсказка
-            balloonContent: '<h3>Банкет</h3><p>Здесь будет праздник</p>', // Балун
+            hintContent: 'Ресторан "Зеленый Луг"', // Подсказка
+            balloonContent: '<h3>Ресторан "Зеленый Луг"</h3><p>Здесь будет проходить банкет</p> <p>ул. Карбышева, 25</p>' , // Балун
         },
         {
             iconLayout: 'default#image',
@@ -65,7 +65,7 @@ function toggleMap() {
 }
 
 function scrollToMap() {
-    const mapElement = document.getElementById('map');
+    const mapElement = document.querySelector('.location');
     if (mapElement) {
         mapElement.scrollIntoView({ behavior: 'smooth' }); // Плавная прокрутка
     }
@@ -80,50 +80,81 @@ window.onload = function() {
 
 document.addEventListener('DOMContentLoaded', () => {
     const feedbackForm = document.getElementById('feedback-form');
+    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+    const lodgingQuestion = document.getElementById("lodging-question");
+    const familyMembersSection = document.getElementById("family-members-section");
+    const addFamilyMemberButton = document.getElementById("add-family-member");
+
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Отменяем стандартную отправку формы
+            e.preventDefault(); // Отмена стандартной отправки формы
 
             // Получаем данные из формы
             const name = document.getElementById('name').value;
             const message = document.getElementById('message').value;
+            const attendance = document.querySelector('input[name="attendance"]:checked')?.value;
+            const lodging = document.querySelector('input[name="lodging"]:checked')?.value;
 
-            // Выводим данные в консоль (или отправляем на сервер)
-            console.log('Имя:', name);
-            console.log('Сообщение:', message);
+            // Получаем все имена членов семьи
+            const familyMembers = Array.from(document.querySelectorAll('.family-member')).map(input => input.value);
 
-            // Очищаем форму
-            feedbackForm.reset();
+            // Формируем объект данных
+            const data = { name, message, attendance, lodging, familyMembers };
 
-            // Показываем уведомление
-            alert('Спасибо за ваше сообщение!');
+            // Отправляем данные на сервер
+            fetch('https://script.google.com/macros/s/AKfycbwH3m5ipu_wN1azHXBqAj3nodt3jZWuSvtvKd3tb7F2P3ezV9H1YQvkRsV55i8T90FL/exec', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors'
+            })
+            .then(() => {
+                alert('Спасибо за ваше сообщение!');
+                feedbackForm.reset();
+                lodgingQuestion.style.display = "none"; // Скрываем блок при очистке формы
+                familyMembersSection.style.display = "none"; // Скрываем блок добавления членов семьи при очистке формы
+                addFamilyMemberButton.style.display = "none"; // Скрываем кнопку при очистке формы
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+                alert('Ошибка при отправке сообщения.');
+            });
         });
     }
-});
 
-document.getElementById('feedback-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+    // Показать/скрыть блок для ночлега и для добавления членов семьи
+    attendanceRadios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            if (this.value === 'yes') {
+                lodgingQuestion.style.display = "block"; // Показываем вопрос о ночлеге
+                addFamilyMemberButton.style.display = "block"; // Показываем кнопку для добавления членов семьи
+            } else {
+                lodgingQuestion.style.display = "none"; // Скрываем вопрос о ночлеге
+                familyMembersSection.style.display = "none"; // Скрываем блок добавления членов семьи
+                addFamilyMemberButton.style.display = "none"; // Скрываем кнопку
+            }
+        });
+    });
 
-    const name = document.getElementById('name').value;
-    const message = document.getElementById('message').value;
-    const attendance = document.querySelector('input[name="attendance"]:checked').value;
+    // Добавить еще члена семьи
+    addFamilyMemberButton.addEventListener('click', () => {
+        const familyMembersContainer = document.getElementById('family-members-container');
+        
+        // Создаем новый блок для поля ввода имени
+        const newMemberGroup = document.createElement('div');
+        newMemberGroup.className = 'form-group feedback'; // Применяем стили формы
 
-    const data = { name, message, attendance };
+        // Создаем новое поле для ввода имени члена семьи
+        const newMemberInput = document.createElement('input');
+        newMemberInput.type = 'text';
+        newMemberInput.className = 'family-member';
+        newMemberInput.name = 'family-member';
+        newMemberInput.placeholder = 'Введите имя';
 
-    fetch('https://script.google.com/macros/s/AKfycbxlReq-_T27icdzsvVZDPK6S_QxBbTiy8P78G4C4gmWlyfLwRfbwVJryInKwFIHFNpk/exec', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        mode: 'no-cors' // Отключаем CORS
-    })
-    // .then(() => {
-    //     alert('Сообщение отправлено!');
-    //     document.getElementById('feedback-form').reset();
-    // })
-    // .catch(error => {
-    //     console.error('Ошибка:', error);
-    //     alert('Ошибка при отправке сообщения.');
-    // });
+        newMemberGroup.appendChild(newMemberInput); // Добавляем поле в контейнер
+        familyMembersContainer.appendChild(newMemberGroup); // Добавляем блок в секцию
+
+        // Показать секцию для добавления членов семьи, если она еще не была показана
+        familyMembersSection.style.display = "block";
+    });
 });
