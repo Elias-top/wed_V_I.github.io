@@ -72,9 +72,9 @@
         
         <section class="location">
             <h3>Место церемонии бракосочетания</h3>
-            <p onclick="toggleMap()" style="cursor: pointer;">Адрес: ул. Максима Багдановича, 17А, Город Минск</p>
+            <p onclick="toggleMap()" style="cursor: pointer;">Адрес: г.Минск, ул. Максима Багдановича, 17А</p>
             <h3>Место проведения банкета</h3>
-            <p onclick="toggleMap()" style="cursor: pointer;">Адрес: ул. Карбышева, 25, Город Минск</p>
+            <p onclick="toggleMap()" style="cursor: pointer;">Адрес: г.Минск, ул. Карбышева, 25</p>
         </section>
 
         <!-- Карта (скрыта по умолчанию) -->
@@ -127,7 +127,24 @@
                         </label>
                     </div>
                 </div>
-        
+                <!-- Вопрос о ночлеге (скрыт по умолчанию) -->
+                <div class="form-group" id="day2-question" style="display: none;">
+                    <label>Планируйте оставаться на второй день?</label>
+                    <div class="attendance-cards">
+                        <label class="attendance-card">
+                            <input type="radio" name="day2" value="yes">
+                            <div class="card-content">
+                                <span class="text">Да</span>
+                            </div>
+                        </label>
+                        <label class="attendance-card">
+                            <input type="radio" name="day2" value="no">
+                            <div class="card-content">
+                                <span class="text">Нет</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
                 <!-- Раздел для добавления членов семьи (скрыт по умолчанию) -->
                 <div id="family-members-section" style="display: none;">
                     <!-- <label for="family-member">Кого еще возьмете с собой?</label> -->

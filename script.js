@@ -82,10 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackForm = document.getElementById('feedback-form');
     const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
     const lodgingQuestion = document.getElementById("lodging-question");
+    const day2Question = document.getElementById("day2-question");
     const familyMembersSection = document.getElementById("family-members-section");
     const addFamilyMemberButton = document.getElementById("add-family-member");
     const wishesSection = document.getElementById("wishes-section");
-    
+
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', (e) => {
             e.preventDefault(); // Отмена стандартной отправки формы
@@ -95,16 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = document.getElementById('message').value;
             const attendance = document.querySelector('input[name="attendance"]:checked')?.value;
             const lodging = document.querySelector('input[name="lodging"]:checked')?.value;
+            const day2 = document.querySelector('input[name="day2"]:checked')?.value;
             
-
             // Получаем все имена членов семьи
             const familyMembers = Array.from(document.querySelectorAll('.family-member')).map(input => input.value);
 
             // Формируем объект данных
-            const data = { name, message, attendance, lodging, familyMembers };
-
+            const data = { name, message, attendance, lodging, day2, familyMembers };
+  
             // Отправляем данные на сервер
-            fetch('https://script.google.com/macros/s/AKfycbwH3m5ipu_wN1azHXBqAj3nodt3jZWuSvtvKd3tb7F2P3ezV9H1YQvkRsV55i8T90FL/exec', {
+            fetch('https://script.google.com/macros/s/AKfycby096pPhwgaDk_A1yGCQRWIMor8PhEh7cAVgpqNT3Uay9cVKERQYXrxsB10iC44u3eY/exec', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: { 'Content-Type': 'application/json' },
@@ -113,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(() => {
                 alert('Спасибо за ваше сообщение!');
                 feedbackForm.reset();
+                day2Question.style.display = "none";
                 lodgingQuestion.style.display = "none"; // Скрываем блок при очистке формы
                 familyMembersSection.style.display = "none"; // Скрываем блок добавления членов семьи при очистке формы
                 addFamilyMemberButton.style.display = "none"; // Скрываем кнопку при очистке формы
@@ -129,10 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
     attendanceRadios.forEach(radio => {
         radio.addEventListener('change', function () {
             if (this.value === 'yes') {
+                day2Question.style.display = "block";
                 lodgingQuestion.style.display = "block"; // Показываем вопрос о ночлеге
                 addFamilyMemberButton.style.display = "block"; // Показываем кнопку для добавления членов семьи
                 wishesSection.style.display = "block";
             } else {
+                day2Question.style.display = "none";
                 lodgingQuestion.style.display = "none"; // Скрываем вопрос о ночлеге
                 familyMembersSection.style.display = "none"; // Скрываем блок добавления членов семьи
                 addFamilyMemberButton.style.display = "none"; // Скрываем кнопку

@@ -243,6 +243,7 @@ body {
 
 /* Группы полей формы */
 .form-group {
+    font-family: 'Merriweather', serif;
     margin-bottom: 20px;
 }
 
@@ -272,6 +273,7 @@ body {
 
 /* Кнопка отправки */
 .feedback button {
+    font-family: 'Merriweather', serif;
     display: block;
     width: 100%;
     padding: 10px;
@@ -410,13 +412,14 @@ body {
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Merriweather', serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
 }
 
 .timeline {
+    font-family: 'Merriweather', serif;
     position: relative;
     max-width: 800px;
     margin: 50px auto;
@@ -430,23 +433,15 @@ body {
     bottom: 0;
     width: 2px;
     background-color: #ccc;
-    left: 50%;
-    margin-left: -1px;
+    left: 20px; /* Смещаем линию влево для мобильных */
 }
 
 .event {
-    padding: 20px 40px;
+    padding: 20px;
     position: relative;
-    width: 50%;
+    margin-left: 50px; /* Отступ для мобильных */
+    width: calc(100% - 50px);
     box-sizing: border-box;
-}
-
-.event.left {
-    left: 0;
-}
-
-.event.right {
-    left: 50%;
 }
 
 .event::after {
@@ -460,31 +455,14 @@ body {
     z-index: 1;
     top: 50%; /* Выравниваем по вертикали */
     transform: translateY(-50%); /* Смещаем вверх на половину высоты */
-}
-
-.event.left::after {
-    right: -10px;
-}
-
-.event.right::after {
-    left: -10px;
+    left: -42px; /* Позиция кружочка для мобильных */
 }
 
 .event-time {
-    position: absolute;
-    top: 50%; /* Выравниваем время по вертикали */
-    transform: translateY(-50%); /* Смещаем вверх на половину высоты */
     font-size: 14px;
     font-weight: bold;
     color: #333;
-}
-
-.event.left .event-time {
-    right: -60px;
-}
-
-.event.right .event-time {
-    left: -60px;
+    margin-bottom: 10px; /* Время над событием */
 }
 
 .event-details {
@@ -492,7 +470,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    opacity: .7
+    opacity: .8;
 }
 
 .event-details h3 {
@@ -502,6 +480,54 @@ body {
 
 .event-details p {
     color: #666;
+}
+
+/* Адаптация для десктопов */
+@media (min-width: 768px) {
+    .timeline::before {
+        left: 50%; /* Возвращаем линию в центр для десктопов */
+        margin-left: -1px;
+    }
+
+    .event {
+        width: 50%;
+        margin-left: 0;
+    }
+
+    .event.left {
+        left: 0;
+    }
+
+    .event.right {
+        left: 50%;
+    }
+
+    .event::after {
+        left: auto;
+    }
+
+    .event.left::after {
+        right: -10px; /* Кружочки для левых событий */
+    }
+
+    .event.right::after {
+        left: -10px; /* Кружочки для правых событий */
+    }
+
+    .event-time {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-bottom: 0;
+    }
+
+    .event.left .event-time {
+        right: -60px; /* Время для левых событий */
+    }
+
+    .event.right .event-time {
+        left: -60px; /* Время для правых событий */
+    }
 }
 
 
