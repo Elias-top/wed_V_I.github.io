@@ -67,7 +67,8 @@ body {
 }
 
 .header h2 {
-    font-family: 'Grechen Fuemen', cursive; /* Тот же шрифт для подзаголовка */
+    font-family: 'Merriweather', serif; /* Тот же шрифт для подзаголовка */
+    
     font-size: 2;
     margin: 10px 0 0;
     color: #fff;
@@ -407,3 +408,101 @@ body {
 #add-family-member {
     margin-bottom: 40px; /* Добавляем отступ снизу */
 }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #ccc;
+    left: 50%;
+    margin-left: -1px;
+}
+
+.event {
+    padding: 20px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.event.left {
+    left: 0;
+}
+
+.event.right {
+    left: 50%;
+}
+
+.event::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 3px solid #ccc;
+    border-radius: 50%;
+    z-index: 1;
+    top: 50%; /* Выравниваем по вертикали */
+    transform: translateY(-50%); /* Смещаем вверх на половину высоты */
+}
+
+.event.left::after {
+    right: -10px;
+}
+
+.event.right::after {
+    left: -10px;
+}
+
+.event-time {
+    position: absolute;
+    top: 50%; /* Выравниваем время по вертикали */
+    transform: translateY(-50%); /* Смещаем вверх на половину высоты */
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.event.left .event-time {
+    right: -60px;
+}
+
+.event.right .event-time {
+    left: -60px;
+}
+
+.event-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: .7
+}
+
+.event-details h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.event-details p {
+    color: #666;
+}
+
+
+

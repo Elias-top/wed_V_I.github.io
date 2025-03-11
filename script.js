@@ -14,7 +14,7 @@ function initMap() {
         [53.908856, 27.556720], // Координаты загса
         {
             hintContent: 'ЗАГС Центрального Района', // Подсказка
-            balloonContent: '<h3>ЗАГС Центрального Района</h3><p>Здесь будет проходить роспись</p> <p>ул. Максима Багдановича, 17А</p>', // Балун
+            balloonContent: '<h3>ЗАГС Центрального Района</h3><p>Место проведения росписи</p> <p>ул. Максима Багдановича, 17А</p>', // Балун
         },
         {
             iconLayout: 'default#image',
@@ -29,7 +29,7 @@ function initMap() {
         [53.947724, 27.644710], // Координаты банкета
         {
             hintContent: 'Ресторан "Зеленый Луг"', // Подсказка
-            balloonContent: '<h3>Ресторан "Зеленый Луг"</h3><p>Здесь будет проходить банкет</p> <p>ул. Карбышева, 25</p>' , // Балун
+            balloonContent: '<h3>Ресторан "Зеленый Луг"</h3><p>Место проведение банкета </p> <p>ул. Карбышева, 25</p>' , // Балун
         },
         {
             iconLayout: 'default#image',
@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const lodgingQuestion = document.getElementById("lodging-question");
     const familyMembersSection = document.getElementById("family-members-section");
     const addFamilyMemberButton = document.getElementById("add-family-member");
-
+    const wishesSection = document.getElementById("wishes-section");
+    
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', (e) => {
             e.preventDefault(); // Отмена стандартной отправки формы
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const message = document.getElementById('message').value;
             const attendance = document.querySelector('input[name="attendance"]:checked')?.value;
             const lodging = document.querySelector('input[name="lodging"]:checked')?.value;
+            
 
             // Получаем все имена членов семьи
             const familyMembers = Array.from(document.querySelectorAll('.family-member')).map(input => input.value);
@@ -114,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 lodgingQuestion.style.display = "none"; // Скрываем блок при очистке формы
                 familyMembersSection.style.display = "none"; // Скрываем блок добавления членов семьи при очистке формы
                 addFamilyMemberButton.style.display = "none"; // Скрываем кнопку при очистке формы
+                wishesSection.style.display = "none";
             })
             .catch(error => {
                 console.error('Ошибка:', error);
@@ -128,10 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.value === 'yes') {
                 lodgingQuestion.style.display = "block"; // Показываем вопрос о ночлеге
                 addFamilyMemberButton.style.display = "block"; // Показываем кнопку для добавления членов семьи
+                wishesSection.style.display = "block";
             } else {
                 lodgingQuestion.style.display = "none"; // Скрываем вопрос о ночлеге
                 familyMembersSection.style.display = "none"; // Скрываем блок добавления членов семьи
                 addFamilyMemberButton.style.display = "none"; // Скрываем кнопку
+                wishesSection.style.display = "none";
             }
         });
     });
