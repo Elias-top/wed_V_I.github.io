@@ -91,6 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
         feedbackForm.addEventListener('submit', (e) => {
             e.preventDefault(); // Отмена стандартной отправки формы
 
+            alert('Спасибо за ваше сообщение!');
+
             // Получаем данные из формы
             const name = document.getElementById('name').value;
             const message = document.getElementById('message').value;
@@ -112,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 mode: 'no-cors'
             })
             .then(() => {
-                alert('Спасибо за ваше сообщение!');
                 feedbackForm.reset();
                 day2Question.style.display = "none";
                 lodgingQuestion.style.display = "none"; // Скрываем блок при очистке формы

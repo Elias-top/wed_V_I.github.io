@@ -472,6 +472,11 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     opacity: .8;
 }
+.message_gift{
+    margin-top: 20; 
+    color: #ccc;
+    opacity: .8;
+}
 
 .event-details h3 {
     margin-top: 0;
